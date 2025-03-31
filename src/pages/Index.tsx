@@ -1,40 +1,48 @@
 
-import React, { useState } from 'react';
-import { TaskProvider } from '../context/TaskContext';
-import Layout from '../components/Layout';
-import TaskList from '../components/TaskList';
-import CalendarView from '../components/CalendarView';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import TaskForm from '@/components/TaskForm';
-import { useTaskContext } from '@/context/TaskContext';
+import { useEffect } from "react";
+import PageTransition from "@/components/shared/PageTransition";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import Hero from "@/components/home/Hero";
+import About from "@/components/home/About";
+import Services from "@/components/home/Services";
+import Products from "@/components/home/Products";
+import Pricing from "@/components/home/Pricing";
+import Testimonials from "@/components/home/Testimonials";
+import Contact from "@/components/home/Contact";
 
-// Main component that uses the context
-const TaskDashboard: React.FC = () => {
-  const { viewMode } = useTaskContext();
-  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
-
+const Index = () => {
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
-    <Layout onOpenAddTask={() => setIsAddTaskOpen(true)}>
-      {viewMode === 'list' ? <TaskList /> : <CalendarView />}
-
-      <Dialog open={isAddTaskOpen} onOpenChange={setIsAddTaskOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Add New Task</DialogTitle>
-          </DialogHeader>
-          <TaskForm onSubmit={() => setIsAddTaskOpen(false)} />
-        </DialogContent>
-      </Dialog>
-    </Layout>
-  );
-};
-
-// Wrapper component to provide the context
-const Index: React.FC = () => {
-  return (
-    <TaskProvider>
-      <TaskDashboard />
-    </TaskProvider>
+    <PageTransition>
+      <div className="min-h-screen flex flex-col overflow-hidden">
+        <Navbar />
+        <main className="flex-grow">
+          <Hero />
+          <section id="about">
+            <About />
+          </section>
+          <section id="services">
+            <Services />
+          </section>
+          <section id="products">
+            <Products />
+          </section>
+          <section id="pricing">
+            <Pricing />
+          </section>
+          <Testimonials />
+          <section id="contact">
+            <Contact />
+          </section>
+        </main>
+        <Footer />
+      </div>
+    </PageTransition>
   );
 };
 
