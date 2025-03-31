@@ -1,13 +1,40 @@
-// Update this page (the content is just a fallback if you fail to update the page)
 
-const Index = () => {
+import React, { useState } from 'react';
+import { TaskProvider } from '../context/TaskContext';
+import Layout from '../components/Layout';
+import TaskList from '../components/TaskList';
+import CalendarView from '../components/CalendarView';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import TaskForm from '@/components/TaskForm';
+import { useTaskContext } from '@/context/TaskContext';
+
+// Main component that uses the context
+const TaskDashboard: React.FC = () => {
+  const { viewMode } = useTaskContext();
+  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <Layout onOpenAddTask={() => setIsAddTaskOpen(true)}>
+      {viewMode === 'list' ? <TaskList /> : <CalendarView />}
+
+      <Dialog open={isAddTaskOpen} onOpenChange={setIsAddTaskOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Add New Task</DialogTitle>
+          </DialogHeader>
+          <TaskForm onSubmit={() => setIsAddTaskOpen(false)} />
+        </DialogContent>
+      </Dialog>
+    </Layout>
+  );
+};
+
+// Wrapper component to provide the context
+const Index: React.FC = () => {
+  return (
+    <TaskProvider>
+      <TaskDashboard />
+    </TaskProvider>
   );
 };
 

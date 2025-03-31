@@ -1,4 +1,5 @@
-# Welcome to your Lovable project
+
+# TaskFlow - Task Management Application
 
 ## Project info
 
@@ -52,13 +53,23 @@ npm run dev
 
 ## What technologies are used for this project?
 
-This project is built with .
+This project is built with:
 
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
+- React Router
+
+## Features
+
+- Create and manage tasks with titles, descriptions, due dates, and priority levels
+- Categorize tasks with custom categories
+- View tasks in both list and calendar views
+- Filter and sort tasks by various criteria
+- Mark tasks as complete/incomplete
+- Edit and delete tasks
 
 ## How can I deploy this project?
 
